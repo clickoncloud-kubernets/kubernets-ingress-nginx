@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: my.clickoncloud.in
+    http:
+      paths:
+      - backend:
+          serviceName: knote
+          servicePort: 80
+
+
+  - host: my3.clickoncloud.in
+    http:
+      paths:
+      - backend:
+          serviceName: node-app
+          servicePort: 80
+
+
+  - host: my1.clickoncloud.in
+    http:
+      paths:
+      - backend:
+          serviceName: node-app
+          servicePort: 80
