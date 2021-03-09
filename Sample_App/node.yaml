@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deploy
+  labels:
+    app: node-app
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - name: node
+        image: soumenbiswas212/kubernets:v1
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:
+      - name: mysecret
+  selector:
+    matchLabels:
+      app: node-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app
+spec:
+  selector:
+    app: node-app
+    
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: ClusterIP	
